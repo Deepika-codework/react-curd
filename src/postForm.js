@@ -12,21 +12,19 @@ class PostForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const { title, message } = this.state
         const data = {
             id: new Date(),
-            title: this.state.title,
-            message: this.state.message,
+            title,
+            message,
             editing: false
         }
-        this.props.dispatch({
-            type: 'ADD_POST',
-            data
-        })
-        this.setState({title:'',message:''})
+        this.props.addPost(data)
+        this.setState({ title: '', message: '' })
 
     }
 
-     setValueForField = (e) => {
+    setValueForField = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
@@ -45,4 +43,12 @@ class PostForm extends Component {
         );
     }
 }
-export default connect()(PostForm);
+const mapDispatchToProps = ((dispatch) => {
+    return {
+        addPost: (data) => dispatch({
+            type: 'ADD_POST',
+            data
+        })
+    }
+})
+export default connect(null, mapDispatchToProps)(PostForm);

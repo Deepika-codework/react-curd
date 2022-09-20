@@ -8,15 +8,20 @@ return (
   <p className="post_message">{this.props.post.message}</p>
   <div className="control-buttons">
     <button className="edit"
-    onClick={() => this.props.dispatch({ type: 'EDIT_POST', id: this.props.post.id })
+    onClick={() => this.props.EditData(this.props.post.id)
     }
     >Edit</button>
     <button className="delete"
-    onClick={() => this.props.dispatch({ type: 'DELETE_POST', id: this.props.post.id })}
+    onClick={() => this.props.DeleteData(this.props.post.id )}
     >Delete</button>
   </div>
 </div>
 );
 }
 }
-export default connect()(Post);
+
+const mapDispatchToProps=((dispatch)=>{return{
+  EditData:(id)=>dispatch({ type: 'EDIT_POST', id: id }),
+  DeleteData:(id)=>dispatch({ type: 'DELETE_POST', id: id })
+}})
+export default connect(null,mapDispatchToProps)(Post);

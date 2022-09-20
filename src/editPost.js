@@ -11,7 +11,7 @@ handleEdit = (e) => {
     newTitle,
     newMessage
   }
-  this.props.dispatch({ type: 'UPDATE', id: this.props.post.id, data: data })
+  this.props.UpdateData(data, this.props.post.id)
 }
 render() {
 return (
@@ -27,4 +27,8 @@ return (
 );
 }
 }
-export default connect()(EditPost);
+
+const mapDispatchToProps=((dispatch)=>{return{
+  UpdateData:(data,id)=>dispatch({ type: 'UPDATE', id: id, data: data })
+}})
+export default connect(null,mapDispatchToProps)(EditPost);
